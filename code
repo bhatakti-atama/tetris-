@@ -463,11 +463,22 @@ void loop()
           check = 0;
         }
       }
-      if (check == 0) {
+      if (check == 0) 
+      {
         break;
       }
     }
-    lur = lor - 1;
   }
-
+  lur = lor -1;
+  for(int i=0;i<emptyRowCounter;i++)
+  {
+    for(int j=1;j<=(blankRows[i]-lor);j++)
+    {
+      for(int k=1;k<9;k++)
+      {
+        tetris[k][blankRows[i]-j]=tetris[k][blankRows[i]-1-j];
+      }
+    }
+    lor = lor -1;
+  }
 }

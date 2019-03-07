@@ -1,6 +1,4 @@
-#include <FastLED.h>
-#define LED_PIN 6
-#define NUM_LED 126
+#include < FastLED.h > #define LED_PIN 6# define NUM_LED 126
 CRGB leds[NUM_LED];
 int x[4];
 int y[4];
@@ -11,309 +9,415 @@ int b1 = 2;
 int b2 = 3;
 int b3 = 4;
 int b4 = 5;
-int orientation; //
+int orientation;
 int baseX;
 int baseY;
 int timeFinal;
 int timeInitial;
-int transfer; //
-void setup()
-{
+int transfer;
+void setup() {
   FastLED.addLeds < WS2812, LED_PIN, GRB > (leds, NUM_LED);
-  for(int i=0;i<14;i++)
-  {
-    for(int j=0;j<9;j++)
-    {
-      tetris[i][j]=0;
+  for (int i = 0; i < 14; i++) {
+    for (int j = 0; j < 9; j++) {
+      tetris[i][j] = 0;
     }
   }
-  for(int i=0;i<4;i++)
-  {
-    x[i]= 0;
-    y[i]= 0;
+  for (int i = 0; i < 4; i++) {
+    x[i] = 0;
+    y[i] = 0;
   }
   pinMode(b1, INPUT_PULLUP);
   pinMode(b2, INPUT_PULLUP);
   pinMode(b3, INPUT_PULLUP);
-  pinMode(b4, INPUT_PULLUP);//
+  pinMode(b4, INPUT_PULLUP);
 }
 
-
-
-
-
-
-
-
-
-void square()
-{
-    x[0] = 3; /*tl*/
-    x[1] = 4; /*tr*/
-    x[2] = 3; /*bl*/
-    x[3] = 4; /*br*/
-    y[0] = 2; /*tl*/
-    y[1] = 2; /*tr*/
-    y[2] = 3; /*bl*/
-    y[3] = 3; /*br*/
-    for(int i=0;i<4;i++)
-    {
-      tetris[y[i]][x[i]]=1;
-    }
-    scan(); //
-    condition=1;
-    while(condition==1)
-    {
-      if (y[3] < 17 && (tetris[y[2]+1][x[2]]) == 0 && (tetris[y[3]+1][x[3]]) == 0)
-      {
-        timeInitial = millis();
-        timeFinal = timeInitial;
-        while((timeFinal - timeInitial) < 3000)
-        {
-          timeFinal = millis();
-          if(b1Input() == 1 && tetris[y[0]][x[0]-1] ==0 && tetris[y[2]][x[2]-1] ==0)
-          {
-            for(int i=0;i<4;i++)
-            {
-              tetris[y[i]][x[i]] = 0;
-              x[i] = x[i] - 1;
-              tetris[y[i]][x[i]] = 1;
-            }
-            scan();
+void square() {
+  x[0] = 3; /*tl*/
+  x[1] = 4; /*tr*/
+  x[2] = 3; /*bl*/
+  x[3] = 4; /*br*/
+  y[0] = 2; /*tl*/
+  y[1] = 2; /*tr*/
+  y[2] = 3; /*bl*/
+  y[3] = 3; /*br*/
+  for (int i = 0; i < 4; i++) {
+    tetris[y[i]][x[i]] = 1;
+  }
+  scan();
+  condition = 1;
+  while (condition == 1) {
+    if (y[3] < 17 && (tetris[y[2] + 1][x[2]]) == 0 && (tetris[y[3] + 1][x[3]]) == 0) {
+      timeInitial = millis();
+      timeFinal = timeInitial;
+      while ((timeFinal - timeInitial) < 3000) {
+        timeFinal = millis();
+        if (b1Input() == 1 && tetris[y[0]][x[0] - 1] == 0 && tetris[y[2]][x[2] - 1] == 0) {
+          for (int i = 0; i < 4; i++) {
+            tetris[y[i]][x[i]] = 0;
+            x[i] = x[i] - 1;
+            tetris[y[i]][x[i]] = 1;
           }
-          else if(b2Input() == 1 && tetris[y[1]][x[1]+1] ==0 && tetris[y[2]][x[2]+1] ==0)
-          {
-            for(int i=0;i<4;i++)
-            {
-              tetris[y[i]][x[i]] = 0;
-              x[i] = x[i] + 1;
-              tetris[y[i]][x[i]] = 1;
-            }
-            scan();
+          scan();
+        } else if (b2Input() == 1 && tetris[y[1]][x[1] + 1] == 0 && tetris[y[2]][x[2] + 1] == 0) {
+          for (int i = 0; i < 4; i++) {
+            tetris[y[i]][x[i]] = 0;
+            x[i] = x[i] + 1;
+            tetris[y[i]][x[i]] = 1;
           }
-
+          scan();
         }
-        for(int i=0;i<4;i++)
-        {
-          tetris[y[i]][x[i]] = 0;
-          y[i] = y[i] + 1;
-          tetris[y[i]][x[i]] = 1;
-        }
-        scan();
 
       }
-      else
-      {
-      if(b1Input() == 1 && tetris[y[0]][x[0]-1] ==0 && tetris[y[2]][x[2]-1] ==0)
-      {
-        for(int i=0;i<4;i++)
-        {
+      for (int i = 0; i < 4; i++) {
+        tetris[y[i]][x[i]] = 0;
+        y[i] = y[i] + 1;
+        tetris[y[i]][x[i]] = 1;
+      }
+      scan();
+
+    } else {
+      if (b1Input() == 1 && tetris[y[0]][x[0] - 1] == 0 && tetris[y[2]][x[2] - 1] == 0) {
+        for (int i = 0; i < 4; i++) {
           tetris[y[i]][x[i]] = 0;
           x[i] = x[i] - 1;
           tetris[y[i]][x[i]] = 1;
         }
         scan();
-      }
-      else if(b2Input() == 1 && tetris[y[1]][x[1]+1] ==0 && tetris[y[2]][x[2]+1] ==0)
-      {
-        for(int i=0;i<4;i++)
-        {
+      } else if (b2Input() == 1 && tetris[y[1]][x[1] + 1] == 0 && tetris[y[2]][x[2] + 1] == 0) {
+        for (int i = 0; i < 4; i++) {
           tetris[y[i]][x[i]] = 0;
           x[i] = x[i] + 1;
           tetris[y[i]][x[i]] = 1;
         }
         scan();
       }
-      if (y[3] < 17 && (tetris[y[2]+1][x[2]]) == 0 && (tetris[y[3]+1][x[3]]) == 0)
-      {
+      if (y[3] < 17 && (tetris[y[2] + 1][x[2]]) == 0 && (tetris[y[3] + 1][x[3]]) == 0) {
 
-      }
-      else
-      {
+      } else {
         condition = 0;
       }
       scan();
-      }
     }
+  }
 }
 
-
-
-
-
-
-
-
-
-void straight()
+void straight() 
 {
   orientation = 0;
   baseX = 2;
   baseY = 3;
   condition = 1;
   transfer = 0;
-  while(condition==1)
+  while (condition == 1) 
   {
-    switch(orientation)
+    switch (orientation) 
     {
-      case 0:
+    case 0:
       {
-        for(int i= 0;i < 4;i++)
+        for (int i = 0; i < 4; i++) 
         {
-          x[i] = baseX + i ;
+          x[i] = baseX + i;
           y[i] = baseY;
           tetris[y[i]][x[i]] = 1;
         }
         scan();
-        if(y[3] < 17 && (tetris[y[0]+1][x[0]] == 0)&& (tetris[y[1]+1][x[1]] == 0 )&& (tetris[y[2]+1][x[2]] == 0 ) && (tetris[y[3]+1][x[3]]) == 0 )
+        if (y[3] < 17 && (tetris[y[0] + 1][x[0]] == 0) && (tetris[y[1] + 1][x[1]] == 0) && (tetris[y[2] + 1][x[2]] == 0) && (tetris[y[3] + 1][x[3]]) == 0) 
         {
-          if(transfer == 0)
+          if (transfer == 0) 
           {
             timeInitial = millis();
             timeFinal = timeInitial;
-          }
-          else
+          } 
+          else 
           {
             transfer = 0;
           }
-          while(timeFinal - timeInitial < 3000)
+          while (timeFinal - timeInitial < 3000) 
           {
             timeFinal = millis();
-            if(baseX>0 && b1Input() == 1 && tetris[y[0]][x[0]-1] == 0)
+            if (baseX > 0 && b1Input() == 1 && tetris[y[0]][x[0] - 1] == 0) 
             {
-              for(int i= 0;i < 4;i++)
+              for (int i = 0; i < 4; i++) 
               {
-                x[i] = baseX + i ;
-                y[i] = baseY;
                 tetris[y[i]][x[i]] = 0;
               }
               baseX = baseX - 1;
-              for(int i= 0;i < 4;i++)
+              for (int i = 0; i < 4; i++) 
               {
-                x[i] = baseX + i ;
+                x[i] = baseX + i;
                 y[i] = baseY;
                 tetris[y[i]][x[i]] = 1;
               }
               scan();
             }
-            if(baseX<5 && b2Input() == 1 && tetris[y[3]][x[3]+1] == 0)
+            if (baseX < 5 && b2Input() == 1 && tetris[y[3]][x[3] + 1] == 0) 
             {
-              for(int i= 0;i < 4;i++)
+              for (int i = 0; i < 4; i++) 
               {
-                x[i] = baseX + i ;
-                y[i] = baseY;
                 tetris[y[i]][x[i]] = 0;
               }
               baseX = baseX + 1;
-              for(int i= 0;i < 4;i++)
+              for (int i = 0; i < 4; i++) 
               {
-                x[i] = baseX + i ;
+                x[i] = baseX + i;
                 y[i] = baseY;
                 tetris[y[i]][x[i]] = 1;
               }
               scan();
             }
-            if(b3Input() == 1 && tetris[y[0]-1][x[0]] == 0 && tetris[y[0]-2][x[0]] == 0 && tetris[y[0]-3][x[0]] == 0)
+            if (b3Input() == 1 && tetris[y[0] - 1][x[0]] == 0 && tetris[y[0] - 2][x[0]] == 0 && tetris[y[0] - 3][x[0]] == 0) 
             {
               orientation = 1;
               transfer = 1;
-              for(int i= 0;i < 4;i++)
+              for (int i = 0; i < 4; i++) 
               {
-                x[i] = baseX + i ;
+                tetris[y[i]][x[i]] = 0;
+              }
+              break;
+            }
+          }
+          if(transfer == 1)
+          {
+            break;
+          }
+          baseY = baseY + 1;
+        } 
+        else 
+        {
+          if (transfer == 0) 
+          {
+            timeInitial = millis();
+            timeFinal = timeInitial;
+          } 
+          else 
+          {
+            transfer = 0;
+          }
+          while (timeFinal - timeInitial < 3000) 
+          {
+            timeFinal = millis();
+            if (baseX > 0 && b1Input() == 1 && tetris[y[0]][x[0] - 1] == 0) 
+            {
+              for (int i = 0; i < 4; i++) 
+              {
+                tetris[y[i]][x[i]] = 0;
+              }
+              baseX = baseX - 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX + i;
+                y[i] = baseY;
+                tetris[y[i]][x[i]] = 1;
+              }
+              scan();
+            }
+            if (baseX < 5 && b2Input() == 1 && tetris[y[3]][x[3] + 1] == 0) 
+            {
+              for (int i = 0; i < 4; i++) 
+              {
+                tetris[y[i]][x[i]] = 0;
+              }
+              baseX = baseX + 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX + i;
+                y[i] = baseY;
+                tetris[y[i]][x[i]] = 1;
+              }
+              scan();
+            }
+            if (b3Input() == 1 && tetris[y[0] - 1][x[0]] == 0 && tetris[y[0] - 2][x[0]] == 0 && tetris[y[0] - 3][x[0]] == 0) 
+            {
+              orientation = 1;
+              transfer = 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX + i;
                 y[i] = baseY;
                 tetris[y[i]][x[i]] = 0;
               }
               break;
             }
           }
-          baseY = baseY +1;
-        }
-        else
-        {
-          if(transfer == 0)
-          {
-            timeInitial = millis();
-            timeFinal = timeInitial;
-          }
-          else
-          {
-            transfer = 0;
-          }
-          while(timeFinal - timeInitial < 3000)
-          {
-            timeFinal = millis();
-            if(baseX>0 && b1Input() == 1 && tetris[y[0]][x[0]-1] == 0)
-            {
-              for(int i= 0;i < 4;i++)
-              {
-                x[i] = baseX + i ;
-                y[i] = baseY;
-                tetris[y[i]][x[i]] = 0;
-              }
-              baseX = baseX - 1;
-              for(int i= 0;i < 4;i++)
-              {
-                x[i] = baseX + i ;
-                y[i] = baseY;
-                tetris[y[i]][x[i]] = 1;
-              }
-              scan();
-            }
-            if(baseX<5 && b2Input() == 1 && tetris[y[3]][x[3]+1] == 0)
-            {
-              for(int i= 0;i < 4;i++)
-              {
-                x[i] = baseX + i ;
-                y[i] = baseY;
-                tetris[y[i]][x[i]] = 0;
-              }
-              baseX = baseX + 1;
-              for(int i= 0;i < 4;i++)
-              {
-                x[i] = baseX + i ;
-                y[i] = baseY;
-                tetris[y[i]][x[i]] = 1;
-              }
-              scan();
-            }
-            if(b3Input() == 1 && tetris[y[0]-1][x[0]] == 0 && tetris[y[0]-2][x[0]] == 0 && tetris[y[0]-3][x[0]] == 0)
-            {
-              orientation = 1;
-              transfer = 1;
-              for(int i= 0;i < 4;i++)
-              {
-                x[i] = baseX + i ;
-                y[i] = baseY;
-                tetris[y[i]][x[i]] = 0;
-              }
-              break;
-            }
-          }
-          if(y[3] < 17 && (tetris[y[0]+1][x[0]] == 0)&& (tetris[y[1]+1][x[1]] == 0 )&& (tetris[y[2]+1][x[2]] == 0 ) && (tetris[y[3]+1][x[3]]) == 0 )
+          if (y[3] < 17 && (tetris[y[0] + 1][x[0]] == 0) && (tetris[y[1] + 1][x[1]] == 0) && (tetris[y[2] + 1][x[2]] == 0) && (tetris[y[3] + 1][x[3]]) == 0) 
           {
             condition = 1;
-          }
-          else
+          } 
+          else 
           {
             condition = 0;
           }
         }
+        break;
       }
-      case 1:
+    case 1:
       {
-        for(int i= 0;i < 4 ;i++)
+        for (int i = 0; i < 4; i++) 
         {
           x[i] = baseX;
-          y[i]=baseY - i;
-          tetris[y[i]]x[i] = 1;
+          y[i] = baseY - i;
+          tetris[y[i]][x[i]] = 1;
         }
         scan();
-        if(y[0] < 17 && (tetris[y[0]][x[0]])==0)
+        if (y[0] < 17 && (tetris[y[0]][x[0]]) == 0) 
+        {
+          if (transfer == 0) 
+          {
+            timeInitial = millis();
+            timeFinal = timeInitial;
+          } 
+          else 
+          {
+            transfer = 0;
+          }
+          while (timeFinal - timeInitial < 3000) 
+          {
+            timeFinal = millis();
+            if (b1Input() == 1 && tetris[y[0]][x[0] - 1] == 0 && tetris[y[1]][x[1] - 1] == 0 && tetris[y[2]][x[2] - 1] == 0 && tetris[y[3]][x[3] - 1] == 0 && x[0] != 0 && x[1] != 0 && x[2] != 0 && x[3] != 0) 
+            {
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX;
+                y[i] = baseY - i;
+                tetris[y[i]][x[i]] = 0;
+              }
+              baseX = baseX - 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX;
+                y[i] = baseY - i;
+                tetris[y[i]][x[i]] = 1;
+              }
+              scan();
+              if (b2Input() == 1 && tetris[y[0]][x[0] + 1] == 0 && tetris[y[1]][x[1] + 1] == 0 && tetris[y[2]][x[2] + 1] == 0 && tetris[y[3]][x[3] + 1] == 0 && x[0] != 8 && x[1] != 8 && x[2] != 8 && x[3] != 8) 
+              {
+                for (int i = 0; i < 4; i++) 
+                {
+                  x[i] = baseX;
+                  y[i] = baseY - i;
+                  tetris[y[i]][x[i]] = 0;
+                }
+                baseX = baseX + 1;
+                for (int i = 0; i < 4; i++) 
+                {
+                  x[i] = baseX;
+                  y[i] = baseY - i;
+                  tetris[y[i]][x[i]] = 1;
+                }
+                scan();
+              }
+            }
+            if (b3Input() == 1 && tetris[baseY][baseX + 1] && tetris[baseY][baseX + 2] && tetris[baseY][baseX + 3]) 
+            {
+              orientation = 0;
+              transfer = 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX;
+                y[i] = baseY - i;
+                tetris[y[i]][x[i]] = 0;
+              }
+              break;
+            }
+            if(transfer == 1)
+            {
+              break;
+            }
+            baseY = baseY + 1;
+          }
+        } 
+        else 
+        {
+          while (timeFinal - timeInitial < 3000) 
+          {
+            timeFinal = millis();
+            if (b1Input() == 1 && tetris[y[0]][x[0] - 1] == 0 && tetris[y[1]][x[1] - 1] == 0 && tetris[y[2]][x[2] - 1] == 0 && tetris[y[3]][x[3] - 1] == 0 && x[0] != 0 && x[1] != 0 && x[2] != 0 && x[3] != 0) 
+            {
+              for (int i = 0; i < 4; i++) 
+              {
+                tetris[y[i]][x[i]] = 0;
+              }
+              baseX = baseX - 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX;
+                y[i] = baseY - i;
+                tetris[y[i]][x[i]] = 1;
+              }
+              scan();
+              if (b2Input() == 1 && tetris[y[0]][x[0] + 1] == 0 && tetris[y[1]][x[1] + 1] == 0 && tetris[y[2]][x[2] + 1] == 0 && tetris[y[3]][x[3] + 1] == 0 && x[0] != 8 && x[1] != 8 && x[2] != 8 && x[3] != 8) {
+
+                for (int i = 0; i < 4; i++) 
+                {
+                  tetris[y[i]][x[i]] = 0;
+                }
+                baseX = baseX + 1;
+                for (int i = 0; i < 4; i++) 
+                {
+                  x[i] = baseX;
+                  y[i] = baseY - i;
+                  tetris[y[i]][x[i]] = 1;
+                }
+                scan();
+              }
+            }
+            if (b3Input() == 1 && tetris[baseY][baseX + 1] && tetris[baseY][baseX + 2] && tetris[baseY][baseX + 3]) 
+            {
+              orientation = 0;
+              transfer = 1;
+              for (int i = 0; i < 4; i++) 
+              {
+                x[i] = baseX;
+                y[i] = baseY - i;
+                tetris[y[i]][x[i]] = 0;
+              }
+              break;
+            }
+          }
+          if (y[0] < 17 && (tetris[y[0]][x[0]]) == 0)
+          {
+            condition = 1;
+          } 
+          else 
+          {
+            condition = 0;
+          }
+        }
+        break;
+      }
+    }
+  }
+}
+
+void jBlock()
+{
+  orientation = 0;
+  baseX = 2; 
+  baseY = 3;
+  condition =1;
+  transfer = 0;
+  while(condition == 1)
+  {
+    switch (orientation)
+    {
+      case 0:
+      {
+        x[0] = baseX;
+        y[0] = baseY -1 ;
+        for( int i = 1;i < 4;i++)
+        {
+          x[i] = baseX + i;
+          y[i] = baseY;
+          tetris[y[i]][x[i]] =1;
+        }
+        scan();
+        if(y[1] <17 && tetris[y[1]+1][x[1]] == 0 && tetris[y[2]+1][x[2]] == 0 && tetris[y[3]+1][x[3]] == 0 )
         {
           if(transfer == 0)
           {
             timeInitial = millis();
-            timeFinal = timeInitial;
+            timeFinal = timeFinal;
           }
           else
           {
@@ -322,42 +426,43 @@ void straight()
           while(timeFinal - timeInitial < 3000)
           {
             timeFinal = millis();
-            if(b1Input() == 1 && tetris[y[0]][x[0]-1] == 0 && tetris[y[1]][x[1]-1] == 0 && tetris[y[2]][x[2]-1] == 0 && tetris[y[3]][x[3]-1] == 0 && x[0] != 0 && x[1] != 0 && x[2] != 0 && x[3] != 0)
+            if(x[1] > 0 && b1Input()==1 && tetris[y[1]][x[1]-1]==0 )
             {
-              for(int i =0;i < 4;i++)
+              for( int i = 1;i < 4;i++)
               {
-                x[i] = baseX ;
-                y[i] = baseY - i;
-                tetris[y[i]][x[i]] = 0;
+                tetris[y[i]][x[i]] =0;
               }
-              baseX = baseX - 1;
-              for(int i =0;i < 4;i++)
+              baseX = baseX -1;
+              x[0] = baseX;
+              y[0] = baseY -1 ;
+              for( int i = 1;i < 4;i++)
               {
-                x[i] = baseX ;
-                y[i] = baseY - i;
-                tetris[y[i]][x[i]] = 1;
+                x[i] = baseX + i;
+                y[i] = baseY;
+                tetris[y[i]][x[i]] =1;
               }
-              scan();
             }
-            if( b2Input() == 1 && tetris[y[0]][x[0]+1] == 0 && tetris[y[1]][x[1]+1] == 0 && tetris[y[2]][x[2]+1] == 0 && tetris[y[3]][x[3]+1] == 0 && x[0] != 8 && x[1] != 8 && x[2] != 8 && x[3] != 8)
+            else if(x[3] < 8 && b2Input()==1 && tetris[y[3]][x[3]+1]==0 )
             {
-              for(int i =0;i < 4; i++)
+              for( int i = 1;i < 4;i++)
               {
-                x[i] = baseX;
-                y[i] = baseY -i;
-                tetris[y[i]][x[i]] = 0;
+                tetris[y[i]][x[i]] =0;
               }
               baseX = baseX + 1;
-              for(int i =0;i < 4; i++)
+              x[0] = baseX;
+              y[0] = baseY -1 ;
+              for( int i = 1;i < 4;i++)
               {
-                x[i] = basex;i
-                y[i] = baseY - i;
-                tetris[y[i]][x[i]] = 1
+                x[i] = baseX + i;
+                y[i] = baseY;
+                tetris[y[i]][x[i]] =1;
               }
-              scan();
+            }
+            else if(b3Input()==1 && tetris[y[1]-2][x[1]] == 0 && tetris[y[1]][x[1]-1]==0 && x[1]>0)
+            {
+              orientation = 1;
             }
           }
-          if( b3Input() == 1 && )
         }
       }
     }
@@ -365,141 +470,84 @@ void straight()
 }
 
 
+int b1Input() {
 
-
-int b1Input()
-{
-
-  if(digitalRead(b1)==LOW)
-  {
+  if (digitalRead(b1) == LOW) {
     delay(100);
-    if(digitalRead(b1)==LOW)
-    {
+    if (digitalRead(b1) == LOW) {
       return 1;
-    }
-    else
-    {
+    } else {
       return 0;
     }
-  }
-  else
-  {
+  } else {
     return 0;
   }
 }
 
-int b2Input()
-{
-  if(digitalRead(b2)==LOW)
-  {
+int b2Input() {
+  if (digitalRead(b2) == LOW) {
     delay(100);
-    if(digitalRead(b2)==LOW)
-    {
+    if (digitalRead(b2) == LOW) {
       return 1;
-    }
-    else
-    {
+    } else {
       return 0;
     }
-  }
-  else
-  {
+  } else {
     return 0;
   }
 }
 
-int b3Input()
-{
-  if(digitalRead(b3)==LOW)
-  {
+int b3Input() {
+  if (digitalRead(b3) == LOW) {
     delay(100);
-    if(digitalRead(b3)==LOW)
-    {
+    if (digitalRead(b3) == LOW) {
       return 1;
-    }
-    else
-    {
+    } else {
       return 0;
     }
-  }
-  else
-  {
+  } else {
     return 0;
   }
 }
 
-int b4Input()
-{
-  if(digitalRead(b4)==LOW)
-  {
+int b4Input() {
+  if (digitalRead(b4) == LOW) {
     delay(100);
-    if(digitalRead(b4)==LOW)
-    {
+    if (digitalRead(b4) == LOW) {
       return 1;
-    }
-    else
-    {
+    } else {
       return 0;
     }
-  }
-  else
-  {
+  } else {
     return 0;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-void scan()
-{/* check for configutation*/
+void scan() { /* check for configutation*/
   ledNumber = 0;
-      for (int i = 4; i < 18; i++) /*18 as number of rows*/ 
-      {
-        if ((i % 2) == 0) 
-        {
-          for (int j = 8; j >= 0; j--) 
-          {
-            if (tetris[i][j] == 1) 
-            {
-              leds[ledNumber] = CRGB(255, 0, 0);
-            } 
-            else 
-            {
-              leds[ledNumber] = CRGB(0, 0, 0);
-            }
-            ledNumber = ledNumber + 1;
-          }
-        } 
-        else 
-        {
-          for (int j = 0; j < 9; j++) 
-          {
-            if (tetris[i][j] == 1) 
-            {
-              leds[ledNumber] = CRGB(255, 0, 0);
-            } 
-            else 
-            {
-              leds[ledNumber] = CRGB(0, 0, 0);
-            }
-            ledNumber = ledNumber + 1;
-          }
+  for (int i = 4; i < 18; i++) /*18 as number of rows*/ {
+    if ((i % 2) == 0) {
+      for (int j = 8; j >= 0; j--) {
+        if (tetris[i][j] == 1) {
+          leds[ledNumber] = CRGB(255, 0, 0);
+        } else {
+          leds[ledNumber] = CRGB(0, 0, 0);
         }
+        ledNumber = ledNumber + 1;
       }
-      FastLED.show();
+    } else {
+      for (int j = 0; j < 9; j++) {
+        if (tetris[i][j] == 1) {
+          leds[ledNumber] = CRGB(255, 0, 0);
+        } else {
+          leds[ledNumber] = CRGB(0, 0, 0);
+        }
+        ledNumber = ledNumber + 1;
+      }
+    }
+  }
+  FastLED.show();
 }
-void loop()
-{
-  
-}
+void loop() {
 
+}

@@ -11,12 +11,12 @@ int b1 = 2;
 int b2 = 3;
 int b3 = 4;
 int b4 = 5;
-int orientation;
+int orientation; //
 int baseX;
 int baseY;
 int timeFinal;
 int timeInitial;
-int transfer;
+int transfer; //
 void setup()
 {
   FastLED.addLeds < WS2812, LED_PIN, GRB > (leds, NUM_LED);
@@ -35,7 +35,7 @@ void setup()
   pinMode(b1, INPUT_PULLUP);
   pinMode(b2, INPUT_PULLUP);
   pinMode(b3, INPUT_PULLUP);
-  pinMode(b4, INPUT_PULLUP);
+  pinMode(b4, INPUT_PULLUP);//
 }
 
 
@@ -60,7 +60,7 @@ void square()
     {
       tetris[y[i]][x[i]]=1;
     }
-    scan();
+    scan(); //
     condition=1;
     while(condition==1)
     {

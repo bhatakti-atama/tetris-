@@ -1,7 +1,7 @@
 //score board
 void digits()
 {
-  int ar[10],hs,cs,r,q,i=0;
+  int ar[4],hs,cs,r,q,i=0;
   int t1=hs,t2=cs;
   i=0;
   while(t1>0)

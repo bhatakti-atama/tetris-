@@ -1,4 +1,6 @@
-#include < FastLED.h > #define LED_PIN 6# define NUM_LED 126
+#include < FastLED.h > 
+#define LED_PIN 6
+# define NUM_LED 126
 CRGB leds[NUM_LED];
 int x[4];
 int y[4];

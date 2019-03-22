@@ -1,0 +1,101 @@
+void scan() { /* check for configutation*/
+  ledNumber = 0;
+  for (int i = 4; i < 18; i++) { /*18 as number of rows*/
+    if ((i % 2) == 0) {
+      for (int j = 8; j >= 0; j--) {
+        switch (tetris[i][j])
+        {
+          case 0:
+            {
+              leds[ledNumber] = CRGB(0, 0, 0);
+              break;
+            }
+          case 1:
+            {
+              leds[ledNumber] = CRGB(138, 29, 67);
+              break;
+            }
+          case 2:
+            {
+              leds[ledNumber] = CRGB(67, 29, 138);
+              break;
+            }
+          case 3:
+            {
+              leds[ledNumber] = CRGB(67, 138, 67);
+              break;
+            }
+          case 4:
+            {
+              leds[ledNumber] = CRGB(29, 138, 67);
+              break;
+            }
+          case 5:
+            {
+              leds[ledNumber] = CRGB(29, 67, 138);
+              break;
+            }
+          case 6:
+            {
+              leds[ledNumber] = CRGB(138, 67, 29);
+              break;
+            }
+          case 7:
+            {
+              leds[ledNumber] = CRGB(200, 50, 60);
+              break;
+            }
+        }
+        ledNumber = ledNumber + 1;
+      }
+    } else {
+      for (int j = 0; j < 9; j++) {
+        switch (tetris[i][j])
+        {
+          case 0:
+            {
+              leds[ledNumber] = CRGB(0, 0, 0);
+              break;
+            }
+          case 1:
+            {
+              leds[ledNumber] = CRGB(138, 29, 67);
+              break;
+            }
+          case 2:
+            {
+              leds[ledNumber] = CRGB(67, 29, 138);
+              break;
+            }
+          case 3:
+            {
+              leds[ledNumber] = CRGB(67, 138, 67);
+              break;
+            }
+          case 4:
+            {
+              leds[ledNumber] = CRGB(29, 138, 67);
+              break;
+            }
+          case 5:
+            {
+              leds[ledNumber] = CRGB(29, 67, 138);
+              break;
+            }
+          case 6:
+            {
+              leds[ledNumber] = CRGB(138, 67, 29);
+              break;
+            }
+          case 7:
+            {
+              leds[ledNumber] = CRGB(200, 50, 60);
+              break;
+            }
+        }
+        ledNumber = ledNumber + 1;
+      }
+    }
+  }
+  FastLED.show();
+}

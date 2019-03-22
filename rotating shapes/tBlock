@@ -62,13 +62,6 @@ void createTBlock3()
   }
   scan();
 }
-void erase()
-{
-  for ( int i =0 ; i < 4 ; i++)
-  {
-    tetris[y[i]][x[i]] = 0;
-  }
-}
 void tBlock()
 {
   orientation = 0;

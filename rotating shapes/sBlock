@@ -30,13 +30,6 @@ void createSBlock1()
   }
   scan();
 }
-void erase()
-{
-  for ( int i = 0 ; i < 4 ; i++)
-  {
-    tetris[y[i]][x[i]] = 0;
-  }
-}
 void sBlock()
 {
   orientation = 0;

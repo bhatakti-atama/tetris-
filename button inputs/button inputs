@@ -1,0 +1,52 @@
+int b1Input() {
+
+  if (digitalRead(b1) == LOW) {
+    delay(100);
+    if (digitalRead(b1) == LOW) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}
+
+int b2Input() {
+  if (digitalRead(b2) == LOW) {
+    delay(100);
+    if (digitalRead(b2) == LOW) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}
+
+int b3Input() {
+  if (digitalRead(b3) == LOW) {
+    delay(100);
+    if (digitalRead(b3) == LOW) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}
+
+int b4Input() {
+  if (digitalRead(b4) == LOW) {
+    delay(100);
+    if (digitalRead(b4) == LOW) {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}

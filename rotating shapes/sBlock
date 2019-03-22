@@ -1,0 +1,215 @@
+void createSBlock0()
+{
+  x[0] = baseX ;
+  x[1] = baseX + 1;
+  x[2] = baseX - 1;
+  x[3] = baseX ;
+  y[0] = baseY;
+  y[1] = baseY;
+  y[2] = baseY + 1;
+  y[3] = baseY + 1;
+  for ( int i = 0; i < 4; i++)
+  {
+    tetris[y[i]][x[i]] = 1;
+  }
+  scan();
+}
+void createSBlock1()
+{
+  x[0] = baseX;
+  x[1] = baseX;
+  x[2] = baseX + 1;
+  x[3] = baseX + 1;
+  y[0] = baseY - 1;
+  y[1] = baseY;
+  y[2] = baseY;
+  y[3] = baseY + 1;
+  for ( int i = 0; i < 4; i++)
+  {
+    tetris[y[i]][x[i]] = 1;
+  }
+  scan();
+}
+void erase()
+{
+  for ( int i = 0 ; i < 4 ; i++)
+  {
+    tetris[y[i]][x[i]] = 0;
+  }
+}
+void sBlock()
+{
+  orientation = 0;
+  baseX = 4;
+  baseY = 4;
+  condition = 1;
+  tfs = 0;
+  while (condition == 1)
+  {
+    if ( orientation == 0)
+    {
+      createSBlock0();
+      scan();
+      if ( baseY < 16 && tetris[y[1] + 1][x[1]] == 0 && tetris[y[2] + 1][x[2]] == 0 && tetris[y[3] + 1][x[3]] == 0 )
+      {
+        if ( tfs == 0 )
+        {
+          timeInitial = millis();
+          timeFinal = timeInitial;
+        }
+        else
+        {
+          tfs = 0;
+        }
+        while ( timeFinal  - timeInitial < 1000 && orientation == 0)
+        {
+          timeFinal = millis();
+          if (baseX >  1 && b1Input() == 1 && tetris[baseY][baseX - 1] == 0 && tetris[baseY + 1][baseX - 2] == 0  )
+          {
+            erase();
+            baseX = baseX - 1;
+            createSBlock0();
+          }
+          if (baseX < 7 && b2Input() == 1 && tetris[baseY][baseX + 2] == 0 && tetris[baseY - 1][baseX + 1] == 0)
+          {
+            erase();
+            baseX = baseX + 1;
+            createSBlock0();
+          }
+          if ( baseY < 8 && baseY > 0 && tetris[baseY - 1][baseX] == 0 && tetris[baseY + 1][baseX + 1] == 0 && b3Input() == 1)
+          {
+            orientation = 1;
+            tfs = 1;
+            erase();
+          }
+        }
+        if (tfs == 0)
+        {
+          erase();
+          baseY = baseY + 1;
+          createSBlock0();
+        }
+      }
+      else
+      {
+        if ( tfs == 0 )
+        {
+          timeInitial = millis();
+          timeFinal = timeInitial;
+        }
+        else
+        {
+          tfs = 0;
+        }
+        while ( timeFinal  - timeInitial < 1000 && orientation == 0)
+        {
+          timeFinal = millis();
+          if (baseX >  1 && b1Input() == 1 && tetris[baseY][baseX - 1] == 0 && tetris[baseY + 1][baseX - 2] == 0  )
+          {
+            erase();
+            baseX = baseX - 1;
+            createSBlock0();
+          }
+          if (baseX < 7 && b2Input() == 1 && tetris[baseY][baseX + 2] == 0 && tetris[baseY - 1][baseX + 1] == 0)
+          {
+            erase();
+            baseX = baseX + 1;
+            createSBlock0();
+          }
+          if ( baseY < 8 && baseY > 0 && tetris[baseY - 1][baseX] == 0 && tetris[baseY + 1][baseX + 1] == 0 && b3Input() == 1)
+          {
+            orientation = 1;
+            tfs = 1;
+            erase();
+          }
+        }
+    }
+    if ( orientation == 1)
+    {
+      createSBlock1();
+      scan();
+      if ( baseY < 16 &&  tetris[y[1] + 1][x[1]] == 0 && tetris[y[3] + 1][x[3]] == 0  )
+      {
+        if ( tfs == 0 )
+        {
+          timeInitial = millis();
+          timeFinal = timeInitial;
+        }
+        else
+        {
+          tfs = 0;
+        }
+        while ( timeFinal  - timeInitial < 1000 && orientation == 1)
+        {
+          timeFinal = millis();
+          if (baseX >  0 && b1Input() == 1 && tetris[baseY][baseX - 1] == 0 && tetris[baseY - 1][baseX - 1] == 0 && tetris[baseY][baseX - 1] == 0 && tetris[baseY - 1][baseX] == 0 )
+          {
+            erase();
+            baseX = baseX - 1;
+            createSBlock1();
+          }
+          if (baseX < 7 && b2Input() == 1 && tetris[baseY - 1][baseX + 1] == 0 && tetris[baseY ][baseX + 2] == 0  && tetris[baseY + 1 ][baseX + 2] == 0)
+          {
+            erase();
+            baseX = baseX + 1;
+            createSBlock1();
+          }
+          if ( baseX > 0 && baseY < 17 && tetris[baseY + 1 ][baseX ] == 0 && tetris[baseY + 1][baseX - 1] == 0 && b3Input() == 1)
+          {
+            orientation = 0;
+            tfs = 1;
+            erase();
+          }
+        }
+        if (tfs == 0)
+        {
+          erase();
+          baseY = baseY + 1;
+          createSBlock1();
+        }
+      }
+      else
+      {
+        if ( tfs == 0 )
+        {
+          timeInitial = millis();
+          timeFinal = timeInitial;
+        }
+        else
+        {
+          tfs = 0;
+        }
+        while ( timeFinal  - timeInitial < 1000 && orientation == 1)
+        {
+          timeFinal = millis();
+          if (baseX >  0 && b1Input() == 1 && tetris[baseY][baseX - 1] == 0 && tetris[baseY - 1][baseX - 1] == 0 && tetris[baseY][baseX - 1] == 0 && tetris[baseY - 1][baseX] == 0 )
+          {
+            erase();
+            baseX = baseX - 1;
+            createSBlock1();
+          }
+          if (baseX < 7 && b2Input() == 1 && tetris[baseY - 1][baseX + 1] == 0 && tetris[baseY ][baseX + 2] == 0  && tetris[baseY + 1 ][baseX + 2] == 0)
+          {
+            erase();
+            baseX = baseX + 1;
+            createSBlock1();
+          }
+          if ( baseX > 0 && baseY < 17 && tetris[baseY + 1 ][baseX ] == 0 && tetris[baseY + 1][baseX - 1] == 0 && b3Input() == 1)
+          {
+            orientation = 0;
+            tfs = 1;
+            erase();
+          }
+        }
+        if ( baseY < 16 &&  tetris[y[1] + 1][x[1]] == 0 && tetris[y[3] + 1][x[3]] == 0  )
+        {
+          condition = 1;
+        }
+        else
+        {
+          condition = 0 ;
+        }
+      }
+    }
+  }
+}

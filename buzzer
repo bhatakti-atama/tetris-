@@ -1,0 +1,18 @@
+void b_line()
+{
+int b=8;
+pinMode(8,OUTPUT);
+digitalRead(8,HIGH);
+delay(1000);
+digitalRead(8,LOW);
+delay(50);
+digitalRead(8,HIGH);
+delay(1000);
+}
+void b_game()
+{
+int b=8;
+pinMode(8,OUTPUT);
+digitalRead(8,HIGH);
+delay(3000);
+}
